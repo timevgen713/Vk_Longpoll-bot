@@ -8,9 +8,7 @@ def send_message(session_api, peer_id, message=None, attachment=None, keyboard=N
                               attachment=attachment, keyboard=keyboard, payload=payload)
 
 # remove user from chat (required params: access_token, group_id, v, chat_id, user_id)
-def remove_user(peer_id, user_id):
+def remove_user(chat_id, user_id):
     params = {'access_token': advanced_data.token, 'group_id': 188541150, 'v': 5.103,
-                                                                'chat_id': int(peer_id - 2000000000), 'user_id': user_id}
+                                                    'chat_id': int(chat_id - 2000000000), 'user_id': user_id}
     request.get('https://api.vk.com/method/messages.removeChatUser', params=params)
-
-

@@ -39,7 +39,7 @@ for event in poll.listen():
         # if it's chat (peer_id != from_id) and it's a message( not invite or kick)
         if event.object.message['peer_id'] != event.object.message['from_id'] and event.object.message['text'] != '':
             # --------------------------Variables--------------------------------------------------
-            peer_id = event.object.message['peer_id'] # chat id
+            chat_id = event.object.message['peer_id'] # chat id
             message_id = event.object.message['conversation_message_id'] # message , to write last user msg in DB
             from_id = event.object.message['from_id'] # who send message (user)
             message = event.object.message['text'] # message text
@@ -51,20 +51,17 @@ for event in poll.listen():
             # --------------------------Variables--------------------------------------------------
             if msg_symbol == '!':
                 if msg_command == 'members':
-                    Util.dict_iterator_and_send(dict_of_users, session_api, peer_id, event)
+                    Util.dict_iterator_and_send(dict_of_users, session_api, chat_id, event)
                 elif msg_command == 'time':
-                    Messages.send_message(session_api, peer_id, Datetime.time_now())
+                    Messages.send_message(session_api, chat_id, Datetime.time_now())
                 elif msg_command == 'date':
-                    Messages.send_message(session_api, peer_id, Datetime.date_now())
+                    Messages.send_message(session_api, chat_id, Datetime.date_now())
                 elif msg_command == 'datetime':
-                    Messages.send_message(session_api, peer_id, Datetime.datetime_now())
+                    Messages.send_message(session_api, chat_id, Datetime.datetime_now())
                 elif msg_command[0:4] == 'kick':
-                    User.remove_user(event, session_api, peer_id, msg_command, dict_of_users)
+                    User.remove_user(event, session_api, chat_id, msg_command, dict_of_users)
                 elif msg_command == 'commands':
-                    Util.all_commands(session_api, peer_id)
-                # elif msg_command[0:3] == 'ban':
-
-
+                    Util.all_commands(session_api, chat_id)
 
         # Not use. For personal messages
         if event.object.message['peer_id'] == event.object.message['from_id']:
