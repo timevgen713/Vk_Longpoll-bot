@@ -26,11 +26,10 @@ def clearList(dict_of_users):
 # Remove user and check data validation( not null, it;s integer and user in chat) else send not found.
 def remove_user(event, session_api, peer_id, msg_command, dict_of_users):
     getConversationMembers(session_api, event, dict_of_users)
-    forward_ids = list()
 
     if len(event.object.message['fwd_messages']) != 0:
         for temp in event.object.message['fwd_messages']:
-            forward_ids.append(temp['from_id'])
+            Message.remove_user(peer_id, int(temp['from_id']))
 
     try:
         msg_ids = msg_command[5:].split()
