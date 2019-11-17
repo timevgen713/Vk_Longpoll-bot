@@ -35,9 +35,9 @@ def remove_user(event, session_api, peer_id, msg_command, dict_of_users):
     try:
         msg_ids = msg_command[5:].split()
         for user_id in msg_ids:
-            if user_id in dict_of_users.keys():
+            if int(user_id) in dict_of_users.keys():
                 Message.remove_user(peer_id, user_id)
             else:
-                Message.send_message(session_api, peer_id, 'User with id: ' + str(user_id) + ' is not in chat!')
+                Message.send_message(session_api, peer_id, 'User with id: \'' + str(user_id) + '\' is not in chat!')
     except ValueError:
         Message.send_message(session_api, peer_id, 'Id is incorrect!')
