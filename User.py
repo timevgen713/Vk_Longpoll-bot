@@ -1,3 +1,4 @@
+# TEST
 import Datetime
 import Message
 
@@ -26,11 +27,18 @@ def clearList(dict_of_users):
 # Remove user and check data validation( not null, it;s integer and user in chat) else send not found.
 def remove_user(event, session_api, peer_id, msg_command, dict_of_users):
     getConversationMembers(session_api, event, dict_of_users)
+    forward_ids = list()
+
+    if len(event.object.message['fwd_messages']) != 0:
+        for temp in event.object.message['fwd_messages']:
+            forward_ids.append(temp['from_id'])
+
     try:
-        value = int(msg_command[5:])
-        if value in dict_of_users.keys():
-            Message.remove_user(peer_id, value)
-        else:
-            Message.send_message(session_api, peer_id, 'User is not in conversation!')
+        msg_ids = msg_command[5:].split()
+        for user_id in msg_ids:
+            if user_id in dict_of_users.keys():
+                Message.remove_user(peer_id, user_id)
+            else:
+                Message.send_message(session_api, peer_id, 'User with id: ' + str(user_id) + ' is not in chat!')
     except ValueError:
-        Message.send_message(session_api, peer_id, 'User is not in conversation!')
+        Message.send_message(session_api, peer_id, 'Id is incorrect!')
