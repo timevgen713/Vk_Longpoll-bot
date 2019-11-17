@@ -12,7 +12,7 @@ from NO_GIT import advanced_data
 import Datetime
 import User
 from Utils import Util
-import Message
+import Messages
 
 # <CONFIG>
 token = advanced_data.token
@@ -53,15 +53,18 @@ for event in poll.listen():
                 if msg_command == 'members':
                     Util.dict_iterator_and_send(dict_of_users, session_api, peer_id, event)
                 elif msg_command == 'time':
-                    Message.send_message(session_api, peer_id, Datetime.time_now())
+                    Messages.send_message(session_api, peer_id, Datetime.time_now())
                 elif msg_command == 'date':
-                    Message.send_message(session_api, peer_id, Datetime.date_now())
+                    Messages.send_message(session_api, peer_id, Datetime.date_now())
                 elif msg_command == 'datetime':
-                    Message.send_message(session_api, peer_id, Datetime.datetime_now())
+                    Messages.send_message(session_api, peer_id, Datetime.datetime_now())
                 elif msg_command[0:4] == 'kick':
                     User.remove_user(event, session_api, peer_id, msg_command, dict_of_users)
                 elif msg_command == 'commands':
                     Util.all_commands(session_api, peer_id)
+                # elif msg_command[0:3] == 'ban':
+
+
 
         # Not use. For personal messages
         if event.object.message['peer_id'] == event.object.message['from_id']:

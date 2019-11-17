@@ -1,4 +1,4 @@
-import Message
+import Messages
 import User
 
 # Iterate dict with users and send msg in format '1. vk.com/{id} 'first_name' 'last_name'
@@ -12,7 +12,7 @@ def dict_iterator_and_send(dict_of_users, session_api, peer_id, event):
                    + ' ' + dict_of_users.get(user)['last_name'] + '\n'
         temp += 1
 
-    Message.send_message(session_api, peer_id, message)
+    Messages.send_message(session_api, peer_id, message)
 
 # All bot known commands
 def all_commands(session_api, peer_id):
@@ -24,4 +24,4 @@ def all_commands(session_api, peer_id):
               '____Chat members:\n' \
               '________1. !members (return list of this chat members)\n' \
               '________2. !kick {id} (kick user from id. Example to kick (id=567123): !kick 567123\n'
-    Message.send_message(session_api, peer_id, message)
+    Messages.send_message(session_api, peer_id, message)

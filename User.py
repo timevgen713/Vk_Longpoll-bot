@@ -1,5 +1,5 @@
 import Datetime
-import Message
+import Messages
 
 # Return chat members. And cutting json to get needful data
 def getConversationMembers(session_api, event, dict_of_users):
@@ -29,14 +29,14 @@ def remove_user(event, session_api, peer_id, msg_command, dict_of_users):
 
     if len(event.object.message['fwd_messages']) != 0:
         for temp in event.object.message['fwd_messages']:
-            Message.remove_user(peer_id, int(temp['from_id']))
+            Messages.remove_user(peer_id, int(temp['from_id']))
 
     try:
         msg_ids = msg_command[5:].split()
         for user_id in msg_ids:
             if int(user_id) in dict_of_users.keys():
-                Message.remove_user(peer_id, user_id)
+                Messages.remove_user(peer_id, user_id)
             else:
-                Message.send_message(session_api, peer_id, 'User with id: \'' + str(user_id) + '\' is not in chat!')
+                Messages.send_message(session_api, peer_id, 'User with id: \'' + str(user_id) + '\' is not in chat!')
     except ValueError:
-        Message.send_message(session_api, peer_id, 'Id is incorrect!')
+        Messages.send_message(session_api, peer_id, 'Id is incorrect!')
