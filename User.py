@@ -1,4 +1,3 @@
-# TEST
 import Datetime
 import Message
 
