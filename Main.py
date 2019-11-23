@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import sys
-
-sys.path.insert(0, '../')
+# import sys
+#
+# sys.path.insert(0, '../')
 
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 import vk_api
@@ -49,19 +49,24 @@ for event in poll.listen():
 
             current_time = Datetime.msg_last_time_format() # to write last user msg in DB (needful time format)
             # --------------------------Variables--------------------------------------------------
-            if msg_symbol == '!':
+            if msg_symbol == '$':
+                # User management
                 if msg_command == 'members':
                     Util.dict_iterator_and_send(dict_of_users, session_api, chat_id, event)
+                elif msg_command[0:4] == 'kick':
+                    User.remove_user(event, session_api, chat_id, msg_command, dict_of_users)
+                elif msg_command[0:3] == 'ban':
+                    User.ban(chat_id, msg_command)
+                # User management
                 elif msg_command == 'time':
                     Messages.send_message(session_api, chat_id, Datetime.time_now())
                 elif msg_command == 'date':
                     Messages.send_message(session_api, chat_id, Datetime.date_now())
                 elif msg_command == 'datetime':
                     Messages.send_message(session_api, chat_id, Datetime.datetime_now())
-                elif msg_command[0:4] == 'kick':
-                    User.remove_user(event, session_api, chat_id, msg_command, dict_of_users)
                 elif msg_command == 'commands':
                     Util.all_commands(session_api, chat_id)
+
 
         # Not use. For personal messages
         if event.object.message['peer_id'] == event.object.message['from_id']:

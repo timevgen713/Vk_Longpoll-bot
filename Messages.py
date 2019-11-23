@@ -3,8 +3,8 @@ import requests as request
 from NO_GIT import advanced_data
 
 # Send message with needful params( required: session_api, peer_id, message)
-def send_message(session_api, peer_id, message=None, attachment=None, keyboard=None, payload=None):
-    session_api.messages.send(peer_id=peer_id, message=message, random_id=random.randint(-2147483648, +2147483648),
+def send_message(session_api, chat_id, message=None, attachment=None, keyboard=None, payload=None):
+    session_api.messages.send(peer_id=chat_id, message=message, random_id=random.randint(-2147483648, +2147483648),
                               attachment=attachment, keyboard=keyboard, payload=payload)
 
 # remove user from chat (required params: access_token, group_id, v, chat_id, user_id)
