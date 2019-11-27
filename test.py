@@ -1,5 +1,5 @@
 import pymysql
-import date
+import Datetime as date
 import datetime
 host = 'localhost'
 user = 'root'
