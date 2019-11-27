@@ -29,7 +29,7 @@ def bd_bancheck():
 	    for row in rows:
 	    	try:
 	    		unbandate = datetime.datetime.strptime(row[4],'%Y-%m-%d %H:%M:%S')
-	    		if now>unbandate:
+	    		if now>=unbandate:
 	    			bd_unban(row[0])
 	    	except ValueError:
 	    		pass
