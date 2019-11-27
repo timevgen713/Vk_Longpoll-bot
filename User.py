@@ -13,7 +13,7 @@ def getConversationMembers(session_api, event, dict_of_users):
         last_name = person['last_name']
         sex = person['sex']
         online = person['online']
-        last_message_time = Datetime.msg_last_time_format()
+        last_message_time = Datetime.date_now()
         dict_of_users[id] = {'last_name': last_name, 'first_name': first_name,
                                    'sex': sex, 'online': online, 'last_message_time': last_message_time}
 
