@@ -5,9 +5,6 @@ from time import strftime, gmtime
 utc = pytz.utc
 msk = pytz.timezone('Europe/Moscow')
 
-def msg_last_time_format():
-    return strftime('%y.%m.%d', gmtime())
-
 def time_now():
 	# время по мск
 	return datetime.datetime.now(tz=msk).strftime('%H:%M:%S')
