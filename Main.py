@@ -47,7 +47,6 @@ for event in poll.listen():
             msg_symbol = message[0] # if command-symbol (!)
             msg_command = message[1:] # command body ( without !)
 
-            current_time = Datetime.msg_last_time_format() # to write last user msg in DB (needful time format)
             # --------------------------Variables--------------------------------------------------
             if msg_symbol == '$':
                 # User management
