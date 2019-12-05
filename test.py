@@ -1,5 +1,5 @@
 import pymysql
-import date
+import Datetime
 import datetime
 ###############################    chat_id и user_id  - строки #####################################
 host = 'localhost'
@@ -100,7 +100,7 @@ def db_msg_last_time_add(chat_id, user_id):
 	con = pymysql.connect(host, user,psw, bd_name)
 	with con:	    
 	    cur = con.cursor()
-	    sql = "UPDATE `"+chat_id+"` SET `last_message`='"+date.datetime_now()+"' WHERE `id`='"+user_id+"';"
+	    sql = "UPDATE `"+chat_id+"` SET `last_message`='"+Datetime.datetime_now()+"' WHERE `id`='"+user_id+"';"
 	    cur.execute(sql)
 def db_get_msg_last_time(chat_id, user_id):
 	con = pymysql.connect(host,user,psw,bd_name)
