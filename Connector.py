@@ -1,6 +1,7 @@
 import pymysql
 import Datetime as date
-import datetime 
+import datetime
+import User
 ###############################    chat_id и user_id  - строки #####################################
 host = 'localhost'
 user = 'root'
@@ -50,17 +51,17 @@ def db_get_msg_amount(chat_id, user_id):
 	    rows = cur.fetchone()
 	    msgcount = int(rows[3])
 	    return msgcount
-def db_warn(chat_id,user_id):
+def db_warn(event, session_api, chat_id, user_id, msg_command, dict_of_users):
 	con = pymysql.connect(host, user,psw, bd_name)
-	with con:	    
+	with con:
 	    cur = con.cursor()
 	    sql = "SELECT * FROM `"+chat_id+"` WHERE `id`='"+user_id+"';"
 	    cur.execute(sql)
 	    rows = cur.fetchone()
 	    warns = int(rows[2])+1
-	    if warns==3:
-	    	pass
-	    	#кик с беседы
+	    if warns == 3:
+			warns == 0
+			User.remove_user(event, session_api, chat_id, msg_command, dict_of_users);
 	    else:
 	    	cur.execute("UPDATE `"+chat_id+"` SET `warns`='"+str(warns)+"' WHERE `id`='"+user_id+"';")
 def db_unwarn(chat_id, user_id):
