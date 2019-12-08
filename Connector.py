@@ -134,8 +134,6 @@ def db_kickfrom(chat_id, time):
 		    	lm = row[4]
 		    	last_message = datetime.datetime.strptime(lm,'%Y-%m-%d %H:%M:%S')
 		    	r = datetime.datetime.strptime(time,'%d.%m.%Y')
-		    	if d<r:
-		    		#  функция кика
-		    else: 
-		    	######### не писал не разу #############
-		    	# функция кика
+		    	if last_message<r:
+		    		#  функция кика 
+		    		#row[0] - user_id
