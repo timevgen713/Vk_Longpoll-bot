@@ -11,7 +11,7 @@ def new_chat(chat_id,admin_id,members):
 	con = pymysql.connect(host, user,psw, bd_name)
 	with con:	    
 	    cur = con.cursor()
-	    sql = "CREATE TABLE `"+chat_id+"`(`id` text NOT NULL,`adminlvl` int(11) NOT NULL DEFAULT '0',`warns` int(11) NOT NULL DEFAULT '0',`msgcount` int(11) NOT NULL DEFAULT '0',`last_message` text NOT NULL)"
+	    sql = "CREATE TABLE `"+chat_id+"`(`id` text NOT NULL,`adminlvl` int(11) NOT NULL DEFAULT '0',`warns` int(11) NOT NULL DEFAULT '0',`msgcount` int(11) NOT NULL DEFAULT '0',`last_message` text NOT NULL DEFAULT '"+date.datetime_now()+"');"
 	    cur.execute(sql)
 	    for i in range(len(members)):
 	    	if members[i]==admin_id:
