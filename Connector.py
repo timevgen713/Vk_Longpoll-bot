@@ -31,6 +31,12 @@ def db_invite_user(chat_id,user_id):
 	    cur = con.cursor()
 	    sql = "INSERT INTO `"+chat_id+"` (`id`) VALUES ('"+user_id+"');"
 	    cur.execute(sql)
+def db_delete_user(chat_id,user_id):
+	con = pymysql.connect(host, user,psw, bd_name)
+	with con:	    
+	    cur = con.cursor()
+	    sql = "DELETE FROM `"+chat_id+"` WHERE `id`='"+user_id+"';"
+	    cur.execute(sql)
 def db_promote(chat_id, user_id):
 	con = pymysql.connect(host, user,psw, bd_name)
 	with con:	    
