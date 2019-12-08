@@ -23,19 +23,8 @@ def delete_chat(chat_id):
 	con = pymysql.connect(host, user,psw, bd_name)
 	with con:	    
 	    cur = con.cursor()
-	    sql = "DROP TABLE `"+chat_id+"`;"
+	    sql = "DROP TABLE `"+chat_id+"` IF EXISTS;"
 	    cur.execute(sql)
-def check_tablename(chat_id):
-	con = pymysql.connect(host, user,psw, bd_name)
-	with con:	    
-	    cur = con.cursor()
-	    sql = "SELECT * FROM `"+chat_id+"`;"
-	    try:
-	    	cur.execute(sql)
-	    	delete_chat(chat_id)
-	    	#создать новый чат new_chat(...)
-	    except Exception:
-	    	#создать новый чат new_chat(...)
 def db_promote(chat_id, user_id):
 	con = pymysql.connect(host, user,psw, bd_name)
 	with con:	    
