@@ -189,3 +189,24 @@ def db_kickfrom(chat_id, time):
                 r = datetime.datetime.strptime(time, '%d.%m.%Y')
                 if last_message < r:
                     User.simple_kick(chat_id, row[0])
+                    
+def db_getState(chat_id,user_id,details): # details - array
+	if len(details)!=0:
+		res = ''
+		con = pymysql.connect(host, user,psw, bd_name)
+		with con:
+			cur = con.cursor()
+			sql = "SELECT * FROM `"+chat_id+"` WHERE `id`='"+user_id+"';"
+			cur.execute(sql)
+			data = cur.fetchone()
+			if 'adminlvl' in details:
+				res += str(data[1])+"\n"
+			if 'warns' in details:
+				res += str(data[2])+"\n"
+			if 'msgcount' in details:
+				res += str(data[3])+"\n"
+			if 'last_message' in details:
+				res += str(data[4])+"\n"
+		return res
+	else:
+		# если details пустой
