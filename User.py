@@ -242,3 +242,16 @@ def online_list(event, session_api, chat_id, msg_command, dict_of_users):
                 message += str(temp) + '. vk.com/id' + str(k) + '\n'
                 temp += 1
     Messages.send_message(session_api, chat_id, message)
+
+def is_online(user_id, event, session_api, dict_of_users):
+    members = getConversationMembers(session_api, event, dict_of_users)
+
+    try:
+        for k, v in members.items():
+            for k2 in v.keys():
+                if k2 == 'online' and v[k2] == 1 and str(k) == str(user_id):
+                    return True;
+                else:
+                    return False
+    except KeyError:
+        pass
