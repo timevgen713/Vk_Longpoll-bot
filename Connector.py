@@ -189,27 +189,30 @@ def db_kickfrom(chat_id, time):
                 r = datetime.datetime.strptime(time, '%d.%m.%Y')
                 if last_message < r:
                     User.simple_kick(chat_id, row[0])
-                    
-def db_getState(chat_id,user_id, event, session_api, dict_of_users):
-	res = ''
-	con = pymysql.connect(host, user,psw, bd_name)
-	with con:
-		cur = con.cursor()
-		sql = "SELECT * FROM `"+chat_id+"` WHERE `id`='"+user_id+"';"
-		cur.execute(sql)
-		data = cur.fetchone()
-		
-		isOnline = User.is_online(user_id, event, session_api, dict_of_users)
-		
-		res = "Statistic of user with id '"+user_id+"':"+"\n"+"Admin lvl: "+str(data[1])+"\n"+"Warns: "+str(data[2])+"\n"+"Message count: "+str(data[3])+"\n"+"Last message: "+str(data[4])+"\n"+"Is user online: "+str(isOnline)
-		return res
+
+
 def db_adminlist(chat_id):
-	res = []
-	con = pymysql.connect(host, user,psw, bd_name)
-	with con:	    
-	    cur = con.cursor()
-	    sql = "SELECT * FROM `"+chat_id+"` WHERE `adminlvl`='1';"
-	    cur.execute(sql)
-	    for row in cur:
-	    	res.append("vk.com/id"+str(row[0]))
-	    return "\n".join(res)
+    res = []
+    con = pymysql.connect(host, user, psw, bd_name)
+    with con:
+        cur = con.cursor()
+        sql = "SELECT * FROM `" + str(chat_id) + "` WHERE `adminlvl`='1';"
+        cur.execute(sql)
+        for row in cur:
+            res.append("vk.com/id" + str(row[0]))
+        return "\n".join(res)
+
+
+def db_getState(chat_id, user_id, event, session_api, dict_of_users):
+    res = ''
+    con = pymysql.connect(host, user, psw, bd_name)
+    with con:
+        cur = con.cursor()
+        sql = "SELECT * FROM `" + str(chat_id) + "` WHERE `id`='" + str(user_id) + "';"
+        cur.execute(sql)
+        data = cur.fetchone()
+
+        isOnline = User.is_online(user_id, event, session_api, dict_of_users)
+
+        res = "Statistic of user with id '" + str(user_id) + "':"+"\n"+"Admin lvl: "+str(data[1])+"\n"+"Warns: "+str(data[2])+"\n"+"Message count: "+str(data[3])+"\n"+"Last message: "+str(data[4])+"\n"+"Is user online: "+str(isOnline)
+        return res
