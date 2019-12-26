@@ -190,7 +190,7 @@ def db_kickfrom(chat_id, time):
                 if last_message < r:
                     User.simple_kick(chat_id, row[0])
                     
-def db_getState(chat_id,user_id):
+def db_getState(chat_id,user_id, event, session_api, dict_of_users):
 	res = ''
 	con = pymysql.connect(host, user,psw, bd_name)
 	with con:
@@ -198,6 +198,9 @@ def db_getState(chat_id,user_id):
 		sql = "SELECT * FROM `"+chat_id+"` WHERE `id`='"+user_id+"';"
 		cur.execute(sql)
 		data = cur.fetchone()
+		
+		isOnline = User.is_online(user_id, event, session_api, dict_of_users)
+		
 		res = str(data[1])+"\n"+str(data[2])+"\n"+str(data[3])+"\n"+str(data[4])
 		return res
 def db_adminlist(chat_id):
