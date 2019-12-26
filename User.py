@@ -243,15 +243,42 @@ def online_list(event, session_api, chat_id, msg_command, dict_of_users):
                 temp += 1
     Messages.send_message(session_api, chat_id, message)
 
+
 def is_online(user_id, event, session_api, dict_of_users):
     members = getConversationMembers(session_api, event, dict_of_users)
 
     try:
-        for k, v in members.items():
-            for k2 in v.keys():
-                if k2 == 'online' and v[k2] == 1 and str(k) == str(user_id):
-                    return True;
-                else:
-                    return False
+        if user_id in members.keys():
+            if members[user_id]['online'] == 1:
+                return True
+            else:
+                return False
     except KeyError:
         pass
+
+
+def admin_list(chat_id, session_api):
+    message = Connector.db_adminlist(chat_id)
+    Messages.send_message(session_api, chat_id, message)
+
+
+def get_state(msg_command, chat_id, event, session_api, dict_of_users):
+    getConversationMembers(session_api, event, dict_of_users)
+    # check forward messages
+    if len(event.object.message['fwd_messages']) != 0:
+        for temp in event.object.message['fwd_messages']:
+            message = Connector.db_getState(chat_id, int(temp['from_id']), event, session_api, dict_of_users)
+            Messages.send_message(session_api, chat_id, message)
+    # check id in msg_command
+    try:
+        msg_ids = msg_command.split()[1:]
+        for user_idd in msg_ids:
+            user_id = (str(user_idd[3:]).split('|'))[0]
+            if int(user_id) in dict_of_users.keys():
+                message = Connector.db_getState(chat_id, int(user_id), event, session_api, dict_of_users)
+                Messages.send_message(session_api, chat_id, message)
+            else:
+                Messages.send_message(session_api, chat_id,
+                                      'User with id: \'' + str(user_id) + '\' is not in chat!')
+    except ValueError:
+        Messages.send_message(session_api, chat_id, 'Id is incorrect!')
