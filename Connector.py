@@ -201,7 +201,7 @@ def db_getState(chat_id,user_id, event, session_api, dict_of_users):
 		
 		isOnline = User.is_online(user_id, event, session_api, dict_of_users)
 		
-		res = str(data[1])+"\n"+str(data[2])+"\n"+str(data[3])+"\n"+str(data[4])+"\n"+str(User.is_online(user_id,event,session_api,dict_of_users))
+		res = "Statistic of user with id '"+user_id+"':"+"\n"+"Admin lvl: "+str(data[1])+"\n"+"Warns: "+str(data[2])+"\n"+"Message count: "+str(data[3])+"\n"+"Last message: "+str(data[4])+"\n"+"Is user online: "+str(isOnline)
 		return res
 def db_adminlist(chat_id):
 	res = []
