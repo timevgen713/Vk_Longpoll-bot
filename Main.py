@@ -103,10 +103,12 @@ for event in poll.listen():
                 User.drop_user(event, session_api, chat_id, msg_command, dict_of_users)
             elif msg_command[0:6] == 'online':
                 User.online_list(event, session_api, chat_id, msg_command, dict_of_users)
+            elif msg_command[0:6] == 'admins':
+                User.admin_list(chat_id, session_api)
             # /User management
             # Statistic
             elif msg_command[0:5] == 'state':
-                pass
+                User.get_state(msg_command, chat_id, event, session_api, dict_of_users)
             # /Statistic
             # Time
             elif msg_command == 'time':
